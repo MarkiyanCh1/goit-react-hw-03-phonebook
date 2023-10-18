@@ -10,6 +10,21 @@ class App extends Component {
     filter: '',
   };
 
+
+  componentDidMount() {
+    const savedContscts = localStorage.getItem('contacts');
+    if (savedContscts !== null) {
+
+      this.setState({ contacts: JSON.parse(savedContscts) });
+    }
+  }
+
+  componentDidUpdate(prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
   changeFilter = newFilter => {
     this.setState({
       filter: newFilter,
